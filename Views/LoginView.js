@@ -2,7 +2,8 @@
 import React, {Component} from 'react';
 import {View,TextInput,Text,StyleSheet,TouchableHighlight}from 'react-native'
 import logicaLogin from '../Backend/logicaLogin'
-export  class LoginView extends Component{
+
+export default class LoginView extends Component{
     render(){
         return(
             <View style={styles.container}>
@@ -10,7 +11,7 @@ export  class LoginView extends Component{
                 <TextInput style={styles.cuadro}></TextInput>
                 <Text style={styles.textos}>Contraseña</Text>
                 <TextInput style={styles.cuadro}></TextInput>
-                <TouchableHighlight onPress={(this.Logueo.bind(this))} style={styles.boton}>
+                <TouchableHighlight onPress={} style={styles.boton}>
                      <Text style={styles.textobonton}>LOGIN</Text>   
                     </TouchableHighlight>
             </View>
@@ -42,21 +43,23 @@ const styles = StyleSheet.create({
     },
     boton:{
         width:200,
-        height:30,
-        backgroundColor:'black',
+        height:40,
+        backgroundColor:'white',
         alignItems: 'center',
         justifyContent: 'center',
         marginTop:50,
         marginBottom:10,
         borderRadius:8,
-        borderWidth:1     
+        borderWidth:1,
+        borderColor: 'purple'   
+        
      },
     textobonton:{
-        color:'white'
+        color:'purple'
 
     },
     textos:{
-      fontSize:25
+      fontSize:18  
     },
     cuadro:{
         width:300,
