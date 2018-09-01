@@ -12,24 +12,27 @@ export default class LoginView extends Component{
                 <TextInput style={styles.cuadro}></TextInput>
                 <Text style={styles.textos}>Contraseña</Text>
                 <TextInput style={styles.cuadro}></TextInput>
-                <TouchableHighlight onPress={() => this.getMoviesFromApi()} style={styles.boton}>
+                <TouchableHighlight  onPress={() => this.PeticionLogin()} style={styles.boton}>
                      <Text style={styles.textobonton}>LOGIN</Text>   
                     </TouchableHighlight>
             </View>
-
         )
     }
 
-    async  getMoviesFromApi() {
+    async  PeticionLogin() {
         try {
             console.log("Entro")
           let response = await fetch(
-            'http://192.168.10.5:3333/login'
-          );
-          
+            'http://192.168.1.130:3333/login'
+          );          
+          if(response != {}){
+              alert('no exise el uusario')
+
+          }else{
           this.props.navigation.navigate('Chats')
           let responseJson = await response.json();
           return responseJson.movies;
+          }
         } catch (error) {
           console.error(error);
         }

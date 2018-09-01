@@ -14,9 +14,6 @@ class Home extends React.Component{
   }
 }
 
-
-
-
 const Apps = createStackNavigator({ 
   Home: {screen: LoginView,  
     navigationOptions: ({navigation}) => ({
