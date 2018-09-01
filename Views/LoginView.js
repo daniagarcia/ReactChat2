@@ -1,7 +1,8 @@
 'use strict'
 import React, {Component} from 'react';
-import {View,TextInput,Text,StyleSheet,TouchableHighlight}from 'react-native'
+import {View,TextInput,Text,StyleSheet,TouchableHighlight,Button}from 'react-native'
 import logicaLogin from '../Backend/logicaLogin'
+import {createStackNavigator} from 'react-navigation';
 
 export default class LoginView extends Component{
     render(){
@@ -11,7 +12,7 @@ export default class LoginView extends Component{
                 <TextInput style={styles.cuadro}></TextInput>
                 <Text style={styles.textos}>Contraseña</Text>
                 <TextInput style={styles.cuadro}></TextInput>
-                <TouchableHighlight onPress={} style={styles.boton}>
+                <TouchableHighlight onPress={() => this.getMoviesFromApi()} style={styles.boton}>
                      <Text style={styles.textobonton}>LOGIN</Text>   
                     </TouchableHighlight>
             </View>
@@ -19,13 +20,20 @@ export default class LoginView extends Component{
         )
     }
 
-    
-Logueo(){
-
-    let claslogin =  logicaLogin();
-    let respuesta = claslogin.login();
-}
-
+    async  getMoviesFromApi() {
+        try {
+            console.log("Entro")
+          let response = await fetch(
+            'http://192.168.10.5:3333/login'
+          );
+          
+          this.props.navigation.navigate('Chats')
+          let responseJson = await response.json();
+          return responseJson.movies;
+        } catch (error) {
+          console.error(error);
+        }
+      }
 }
 
 
