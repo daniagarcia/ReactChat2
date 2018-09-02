@@ -8,13 +8,26 @@ export default class LoginView extends Component{
     render(){
         return(
             <View style={styles.container}>
+            
                 <Text style={styles.textos}>Usuario</Text>
+
                 <TextInput style={styles.cuadro}></TextInput>
+                 
                 <Text style={styles.textos}>Contraseña</Text>
+
                 <TextInput style={styles.cuadro}></TextInput>
+
                 <TouchableHighlight  onPress={() => this.PeticionLogin()} style={styles.boton}>
-                     <Text style={styles.textobonton}>LOGIN</Text>   
-                    </TouchableHighlight>
+
+                     <Text style={styles.textobonton}>LOGIN</Text>
+
+                </TouchableHighlight>
+
+                <TouchableHighlight   style={styles.botonR}>
+
+                     <Text style={styles.textobontonR}>Registrar</Text> 
+
+                </TouchableHighlight>
             </View>
         )
     }
@@ -23,18 +36,24 @@ export default class LoginView extends Component{
         try {
             console.log("Entro")
           let response = await fetch(
-            'http://192.168.1.130:3333/login'
-          );          
-          if(response != {}){
-              alert('no exise el uusario')
+            'http://192.168.0.11:3333/login'
+            
+          );    
+          let responseJson = await response.json();      
+          responseJson = response.getJson()
+          if(responseJson != {}){
+              alert('no exise el usuario')
 
           }else{
           this.props.navigation.navigate('Chats')
-          let responseJson = await response.json();
+         
+          
           return responseJson.movies;
           }
         } catch (error) {
-          console.error(error);
+    
+            console.error(error);
+
         }
       }
 }
@@ -65,6 +84,23 @@ const styles = StyleSheet.create({
         borderColor: 'purple'   
         
      },
+     botonR:{
+        width:200,
+        height:40,
+        backgroundColor:'purple',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop:10,
+        marginBottom:10,
+        borderRadius:8,
+        borderWidth:1,
+        borderColor: 'purple'   
+        
+     },
+     textobontonR:{
+        color:'white'
+
+    },
     textobonton:{
         color:'purple'
 
