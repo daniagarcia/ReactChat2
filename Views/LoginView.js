@@ -10,23 +10,14 @@ export default class LoginView extends Component{
             <View style={styles.container}>
             
                 <Text style={styles.textos}>Usuario</Text>
-
-                <TextInput style={styles.cuadro}></TextInput>
-                 
+                <TextInput style={styles.cuadro}></TextInput>                 
                 <Text style={styles.textos}>Contraseña</Text>
-
                 <TextInput style={styles.cuadro}></TextInput>
-
                 <TouchableHighlight  onPress={() => this.PeticionLogin()} style={styles.boton}>
-
                      <Text style={styles.textobonton}>LOGIN</Text>
-
                 </TouchableHighlight>
-
-                <TouchableHighlight   style={styles.botonR}>
-
-                     <Text style={styles.textobontonR}>Registrar</Text> 
-
+                <TouchableHighlight style={styles.botonR}>
+                     <Text style={styles.textobontonR}>Registrar</Text>
                 </TouchableHighlight>
             </View>
         )
@@ -39,16 +30,18 @@ export default class LoginView extends Component{
             'http://192.168.0.11:3333/login'
             
           );    
-          let responseJson = await response.json();      
-          responseJson = response.getJson()
+          let responseJson = await response.text();   
+          responseJson = response.text();
+        //   console.log(response)
+        //   console.log(responseJson)
+          console.log(response.text())
           if(responseJson != {}){
               alert('no exise el usuario')
 
-          }else{
-          this.props.navigation.navigate('Chats')
-         
+          }else{           
+          this.props.navigation.navigate('Chats')        
           
-          return responseJson.movies;
+          
           }
         } catch (error) {
     
@@ -56,6 +49,7 @@ export default class LoginView extends Component{
 
         }
       }
+
 }
 
 
@@ -115,3 +109,25 @@ const styles = StyleSheet.create({
         marginBottom:10
     }
 })
+
+// var dataObj = {}
+// dataObj.uname = uname,
+// dataObj.password = password
+
+// fetch("http://192.168.0.11:3333/login", {
+//   method: 'post',
+//   headers: {
+//     'Accept': 'application/json, text/plain, */*',  // It can be used to overcome cors errors
+//     'Content-Type': 'application/json'
+//   },
+//   body: JSON.stringify(dataObj)
+// })
+// .then((response) => response.json())
+// .then((responseData) => {
+//   AlertIOS.alert(
+//       "POST Response",
+//       "Response Body -> " + JSON.stringify(responseData.body)
+//   )
+// }).done();
+//     this.props.navigation.navigate("Chats")
+// };
