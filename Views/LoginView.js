@@ -27,14 +27,14 @@ export default class LoginView extends Component{
         try {
             console.log("Entro")
           let response = await fetch(
-            'http://192.168.0.11:3333/login'
+            'http://192.168.1.130:3333/login'
             
           );    
           let responseJson = await response.text();   
-          responseJson = response.text();
+          responseJson = response().text();
         //   console.log(response)
         //   console.log(responseJson)
-          console.log(response.text())
+        //   console.log(response.getJson())
           if(responseJson != {}){
               alert('no exise el usuario')
 
