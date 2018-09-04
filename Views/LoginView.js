@@ -1,6 +1,6 @@
 'use strict'
 import React, {Component} from 'react';
-import {View,TextInput,Text,StyleSheet,TouchableHighlight,Button}from 'react-native'
+import {View,TextInput,Text,StyleSheet,TouchableHighlight,Button,AsyncStorage}from 'react-native'
 import logicaLogin from '../Backend/logicaLogin'
 import {createStackNavigator} from 'react-navigation';
 
@@ -38,43 +38,16 @@ export default class LoginView extends Component{
             method: 'POST',
             body: this.formData,
             });
-
-            if(response.session.type){
-            this.props.navigation.navigate('Chats') 
-            console.log(response.json())
+            let responseJson = await response.json()
+            if(responseJson.sesion.type){
+                await AsyncStorage.setItem('id_usuario',responseJson.usuario.id.toString())
+                await AsyncStorage.setItem('username',responseJson.usuario.username)
+                this.props.navigation.navigate('Contactos') 
             }
         }catch(error){
             console.log(error)
         }
     }
-
-    // async  PeticionLogin() {
-        
-    //     try {
-    //         console.log("Entro")
-    //       let response = await fetch(
-    //         'http://192.168.43.151:3333/login'
-            
-    //       );    
-    //       let responseJson = await response.text();   
-    //       responseJson = response().text();
-    //     //   console.log(response)
-    //     //   console.log(responseJson)
-    //     //   console.log(response.getJson())
-    //       if(responseJson != {}){
-    //           alert('no exise el usuario')
-
-    //       }else{           
-    //       this.props.navigation.navigate('Chats')        
-          
-          
-    //       }
-    //     } catch (error) {
-    
-    //         console.error(error);
-
-    //     }
-    //   }
 
 }
 

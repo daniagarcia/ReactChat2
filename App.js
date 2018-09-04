@@ -3,6 +3,7 @@ import { AppRegistry,StyleSheet, Text,TextInput, View, Button } from 'react-nati
 import {createStackNavigator} from 'react-navigation';
 import LoginView from './Views/LoginView'
 import ChatView from './Views/ChatView'
+import UsuariosGrupos from './Views/UsuariosGrupos';
 
 
 class Home extends React.Component{
@@ -34,6 +35,15 @@ const Apps = createStackNavigator({
          }
       }),
     },
+    Contactos: {screen: UsuariosGrupos,
+      navigationOptions: ({navigation}) => ({
+        title: 'Contactos',
+        headerTitleStyle: { color: 'purple'},
+        headerStyle: {
+          // backgroundColor: 'purple'
+           }
+        }),
+      },
 }); 
 
 export default Apps;
