@@ -31,13 +31,18 @@ export default class LoginView extends Component{
     async PeticionLogin(){
         this.formData.append("usu", this.usuario)
         this.formData.append("psw", this.password)
-        try{      
+        try{  
+         
+
         let response = await fetch('http://192.168.43.151:3333/login', {
             method: 'POST',
             body: this.formData,
             });
+
+            if(response.session.type){
             this.props.navigation.navigate('Chats') 
             console.log(response.json())
+            }
         }catch(error){
             console.log(error)
         }
