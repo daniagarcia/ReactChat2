@@ -10,9 +10,11 @@ export default class LoginView extends Component{
             <View style={styles.container}>
             
                 <Text style={styles.textos}>Usuario</Text>
-                <TextInput style={styles.cuadro}></TextInput>                 
+                <TextInput style={styles.cuadro}
+                onChangeText={(text) => this.usuario = text}></TextInput>                 
                 <Text style={styles.textos}>Contraseña</Text>
-                <TextInput style={styles.cuadro}></TextInput>
+                <TextInput style={styles.cuadro}
+                 onChangeText={(text) => this.password = text}></TextInput>
                 <TouchableHighlight  onPress={() => this.PeticionLogin()} style={styles.boton}>
                      <Text style={styles.textobonton}>LOGIN</Text>
                 </TouchableHighlight>
@@ -23,32 +25,51 @@ export default class LoginView extends Component{
         )
     }
 
-    async  PeticionLogin() {
-        try {
-            console.log("Entro")
-          let response = await fetch(
-            'http://192.168.1.130:3333/login'
-            
-          );    
-          let responseJson = await response.text();   
-          responseJson = response().text();
-        //   console.log(response)
-        //   console.log(responseJson)
-        //   console.log(response.getJson())
-          if(responseJson != {}){
-              alert('no exise el usuario')
-
-          }else{           
-          this.props.navigation.navigate('Chats')        
-          
-          
-          }
-        } catch (error) {
-    
-            console.error(error);
-
+    usuario;
+    password;
+    formData = new FormData();
+    async PeticionLogin(){
+        this.formData.append("usu", this.usuario)
+        this.formData.append("psw", this.password)
+        try{      
+        let response = await fetch('http://192.168.43.151:3333/login', {
+            method: 'POST',
+            body: this.formData,
+            });
+            this.props.navigation.navigate('Chats') 
+            console.log(response.json())
+        }catch(error){
+            console.log(error)
         }
-      }
+    }
+
+    // async  PeticionLogin() {
+        
+    //     try {
+    //         console.log("Entro")
+    //       let response = await fetch(
+    //         'http://192.168.43.151:3333/login'
+            
+    //       );    
+    //       let responseJson = await response.text();   
+    //       responseJson = response().text();
+    //     //   console.log(response)
+    //     //   console.log(responseJson)
+    //     //   console.log(response.getJson())
+    //       if(responseJson != {}){
+    //           alert('no exise el usuario')
+
+    //       }else{           
+    //       this.props.navigation.navigate('Chats')        
+          
+          
+    //       }
+    //     } catch (error) {
+    
+    //         console.error(error);
+
+    //     }
+    //   }
 
 }
 
