@@ -12,7 +12,8 @@ import { StyleSheet,
   AsyncStorage,
   ScrollView
 } from 'react-native';
-import Ws from '@adonisjs/websocket-client'
+import Ws from '@adonisjs/websocket-client';
+const ws = Ws('ws://192.168.43.151:3333')
 
 
 
@@ -62,11 +63,12 @@ const AVATAR =
     }
 
     componentDidMount(){
+      ws.connect()
       this.recuperandoValores();
     }
 
-     async MostrarMsj() {
-      var idUsuario = await AsyncStorage.getItem('id_usuario')
+     MostrarMsj() {
+      var idUsuario =  "1"
       return this.state.mensajes.map((x, index) => {
           if(idUsuario==x.id_usuario){
             return( 
@@ -91,7 +93,6 @@ const AVATAR =
       UserArray.sort()
       var ArrayUsers = UserArray.join('_')    
       
-      
       fetch('http://192.168.43.151:3333/chats/'+ArrayUsers,{
          method: 'GET',
       })
@@ -104,7 +105,10 @@ const AVATAR =
       }).catch((error) =>{
          console.error(error);
        });
+       this.subscribirCanal(ArrayUsers)
      }
+
+
 
     
      async GuardarMensajes(){
@@ -126,17 +130,39 @@ const AVATAR =
         let response = await fetch('http://192.168.43.151:3333/chats', {
             method: 'POST',
             body: fromData,
+            }).then( () => {
+              
             });
             this.state.mensajes.push(this.state.mensaje)
+            ws.getSubscription('chat:1_2').emit('message','prueba')
             this.componentDidMount()
         }catch(error){
             console.log(error)
         }
     }
 
-    ws;
+  
     canal;
-
+    subscribirCanal(room) {
+      console.log(room)
+      this.canal = ws.subscribe('chat:1_2')  
+  
+      this.canal.on('error', data => {
+  
+      })
+  
+      this.canal.on('message', data => {
+        this.MostrarMsj()       
+      })
+      this.canal.on('entrar', data => {
+        console.log('acaba de entrar un usuario')
+      })
+  
+      this.canal.on('close', data => {
+  
+      })
+  
+    }
 
 }
 
