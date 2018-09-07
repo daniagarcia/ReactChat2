@@ -13,7 +13,7 @@ import { StyleSheet,
   ScrollView
 } from 'react-native';
 import Ws from '@adonisjs/websocket-client';
-const ws = Ws('ws://192.168.43.151:3333')
+const ws = Ws('ws://192.168.1.130:3333')
 
 
 
@@ -93,7 +93,7 @@ const AVATAR =
       UserArray.sort()
       var ArrayUsers = UserArray.join('_')    
       
-      fetch('http://192.168.43.151:3333/chats/'+ArrayUsers,{
+      fetch('http://192.168.1.130:3333/chats/'+ArrayUsers,{
          method: 'GET',
       })
       .then((response) => response.json())
@@ -127,7 +127,7 @@ const AVATAR =
       fromData.append('UsersArray', ArrayUsers)
 
       try{         
-        let response = await fetch('http://192.168.43.151:3333/chats', {
+        let response = await fetch('http://192.168.1.130:3333/chats', {
             method: 'POST',
             body: fromData,
             }).then( () => {

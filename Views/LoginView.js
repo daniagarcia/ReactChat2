@@ -34,7 +34,7 @@ export default class LoginView extends Component{
         try{  
          
 
-        let response = await fetch('http://192.168.43.151:3333/login', {
+        let response = await fetch('http://192.168.1.130:3333/login', {
             method: 'POST',
             body: this.formData,
             });

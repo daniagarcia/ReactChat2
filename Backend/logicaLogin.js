@@ -10,7 +10,7 @@ export class logicaLogin{
     async login() {
         try{
             let response = await fetch(
-               ' http://127.0.0.1:3333/login'
+               ' http://192.168.1.130:3333/login'
             );
             let responseJsonLogin = await response.json();
             return responseJsonLogin
